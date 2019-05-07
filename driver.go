@@ -8,12 +8,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/goftp/server"
+	"github.com/attenberger/ftps_qftp-server"
 )
 
 type FileDriver struct {
 	RootPath string
-	server.Perm
+	Perm
 }
 
 type FileInfo struct {
@@ -233,7 +233,7 @@ func (driver *FileDriver) PutFile(destPath string, data io.Reader, appendData bo
 
 type FileDriverFactory struct {
 	RootPath string
-	server.Perm
+	Perm
 }
 
 func (factory *FileDriverFactory) NewDriver() (server.Driver, error) {
