@@ -53,7 +53,7 @@ func (driver *FileDriver) ChangeDir(path string) error {
 	return errors.New("Not a directory")
 }
 
-func (driver *FileDriver) Stat(path string) (server.FileInfo, error) {
+func (driver *FileDriver) Stat(path string) (ftp_server.FileInfo, error) {
 	basepath := driver.realPath(path)
 	rPath, err := filepath.Abs(basepath)
 	if err != nil {
@@ -81,7 +81,7 @@ func (driver *FileDriver) Stat(path string) (server.FileInfo, error) {
 	return &FileInfo{f, mode, owner, group}, nil
 }
 
-func (driver *FileDriver) ListDir(path string, callback func(server.FileInfo) error) error {
+func (driver *FileDriver) ListDir(path string, callback func(ftp_server.FileInfo) error) error {
 	basepath := driver.realPath(path)
 	return filepath.Walk(basepath, func(f string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -232,6 +232,6 @@ type FileDriverFactory struct {
 	Perm
 }
 
-func (factory *FileDriverFactory) NewDriver() (server.Driver, error) {
+func (factory *FileDriverFactory) NewDriver() (ftp_server.Driver, error) {
 	return &FileDriver{factory.RootPath, factory.Perm}, nil
 }
